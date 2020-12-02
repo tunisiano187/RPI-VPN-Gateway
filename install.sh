@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 # Raspberry Pi VPN Gateway Installation Script
 
 NC='\033[0m' # Normal Color
@@ -94,7 +94,7 @@ fi
 
 echo -e "${INFO}Searching for the network allowing us to go to the internet.${NC}"
 echo -e "${INFO}------------------------------------------------------------${NC}"
-_LAN=route -n | grep "UG " | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f2 | cut -d '.' -f3
+_LAN=$(route -n | grep "UG " | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f2 | cut -d '.' -f3)
 #_INTERFACE = 
 echo -e "${INFO}#########################################${NC}"
 echo -e "${INFO}# Updating local network to 192.168.${_ROUTER}.1 #${NC}"

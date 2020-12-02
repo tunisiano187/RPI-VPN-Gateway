@@ -1,4 +1,4 @@
-﻿# Raspberry Pi VPN Gateway Start Script
+# Raspberry Pi VPN Gateway Start Script
 
 NC='\033[0m' # Normal Color
 INFO='\033[0;32m' # Green Color

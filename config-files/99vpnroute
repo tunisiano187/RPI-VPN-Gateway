@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 if [ "$PPP_IPPARAM" == "workvpn" ]; then
         route add -net 192.168.1.0/24 dev $PPP_IFACE
 fi
