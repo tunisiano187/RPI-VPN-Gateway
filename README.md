@@ -26,7 +26,7 @@ Installation:
 -------------
 
 * In the terminal, run:
-    curl -s https://raw.githubusercontent.com/tunisiano187/RPI-VPN-Gateway/main/start.sh | sudo bash
+    wget https://raw.githubusercontent.com/tunisiano187/RPI-VPN-Gateway/main/start.sh && chmod a+x ./start.sh && sudo ./start.sh
 
 * Confirm that you are happy for changes to be made
 
