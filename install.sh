@@ -124,8 +124,8 @@ cp ./config-files/iptables.ipv4.nat /etc
 touch /var/lib/misc/udhcpd.leases
 
 echo -e "${INFO}Initialising DHCP server${NC}"
-service udhcpd start
-update-rc.d udhcpd enable
+#service udhcpd start
+#update-rc.d udhcpd enable
 
 echo -e "${INFO}================================================================${NC}"
 echo -e "${INFO}=================== Configuration complete! ====================${NC}"
