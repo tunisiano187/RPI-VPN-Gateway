@@ -23,7 +23,7 @@ echo -e "${INFO}-----------------------${NC}"
 
 apt-get -y -qq install git
 
-git clone https://github.com/tunisiano187/RPI-VPN-Gateway.git /tmp/RPI-VPN-Gateway
+git clone -q https://github.com/tunisiano187/RPI-VPN-Gateway.git /tmp/RPI-VPN-Gateway
 
 cd /tmp/RPI-VPN-Gateway
-sudo ./install.sh
+sudo /tmp/RPI-VPN-Gateway/install.sh
