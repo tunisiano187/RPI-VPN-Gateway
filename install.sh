@@ -44,6 +44,7 @@ read -r -p "What is the name of the vpn ?" remotevpnname
 read -r -p "What is the server IP or URL ? " remotevpn
 read -r -p "What is your VPN username ? " remotevpnuser
 read -r -sp "What is your VPN password ? " remotevpnpassword
+echo ""
 read -r -p "\nWhat is the remote network's address (ex:192.168.1.0/24)" remotevpnnet
 
 echo -e "${INFO}Setting up the VPN informations${NC}"
@@ -76,12 +77,12 @@ read -r -p "Do you want to use remote DNS servers? [y/N] " remotednsresponse
 if [[ $remotednsresponse =~ ^([nN])$ ]]
 then
 	read -r -p "Do you wish to be protected by Cloudflare's kids DNS servers? [y/N] " unblockusdnsresponse
-	if [[ $unblockusdnsresponse =~ ^([yY][eE][sS]|[oO])$ ]]
+	if [[ $unblockusdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
 	then
 		cp ./config-files/udhcpd_cloudflare_kids.conf /etc/udhcpd.conf
 	else
 		read -r -p "Do you wish to be protected by Cloudflare's malware protection DNS servers? [y/N] " opendnsresponse
-		if [[ $opendnsresponse =~ ^([yY][eE][sS]|[oO])$ ]]
+		if [[ $opendnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
 		then
 			cp ./config-files/udhcpd_cloudflare_malware.conf /etc/udhcpd.conf
 		else
