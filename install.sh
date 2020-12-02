@@ -21,7 +21,7 @@ echo -e "${INFO}======================================================${NC}"
 
 read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " confirm
 
-if ! [[ $confirm =~ ^([yY][eE][sS]|[oO])$ ]]
+if ! [[ $confirm -eq ^([yY])$ ]]
 then
 	exit 1
 fi
