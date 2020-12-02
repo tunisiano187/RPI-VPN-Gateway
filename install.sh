@@ -59,9 +59,9 @@ sed -i "s~192.168.1.0/24~${remotevpnnet}~g" /etc/ppp/ip-up.d/99vpnroute
 chmod +x /etc/ppp/ip-up.d/99vpnroute
 echo "#!/bin/sh" > /etc/network/if-up.d/ppp
 echo "# This file was installed with the RPI-VPN-Gateway script" >> /etc/network/if-up.d/ppp
-echo "# For more info see https://github.com/unixabg/RPI-VPN-Gateway" > /etc/network/if-up.d/ppp
-echo "" > /etc/network/if-up.d/ppp
-echo "pon ${remotevpnname}" > /etc/network/if-up.d/ppp
+echo "# For more info see https://github.com/unixabg/RPI-VPN-Gateway" >> /etc/network/if-up.d/ppp
+echo "" >> /etc/network/if-up.d/ppp
+echo "pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
 
 
 echo -e "${INFO}###########################################${NC}"
