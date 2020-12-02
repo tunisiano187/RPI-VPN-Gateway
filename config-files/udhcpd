@@ -1,0 +1,7 @@
+﻿# This file was installed with the RPI-VPN-Gateway script
+# For more info see https://github.com/tunisiano187/RPI-VPN-Gateway
+# ------------------------------------------------------------------
+# Comment the following line to enable
+#DHCPD_ENABLED="no"
+
+DHCPD_OPTS="-S"
