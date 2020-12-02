@@ -21,8 +21,9 @@ echo -e "${INFO}======================================================${NC}"
 
 read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " confirm
 
-if ! [[ $confirm -eq ^([yY])$ ]]
+if ! [[ $confirm -eq "n" ]]
 then
+	echo -e "${ERROR}Expecting y, so quitting${NC}"
 	exit 1
 fi
 
