@@ -98,9 +98,9 @@ echo -e "${INFO}------------------------------------------------------------${NC
 _LAN=$(route -n | grep "UG " | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f2 | cut -d '.' -f3)
 #_INTERFACE = 
 echo -e "${INFO}#########################################${NC}"
-echo -e "${INFO}# Updating local network to 192.168.${_ROUTER}.1 #${NC}"
+echo -e "${INFO}# Updating local network to 192.168.${_LAN}.1 #${NC}"
 echo -e "${INFO}#########################################${NC}"
-
+_ROUTER="$192.168.{_LAN}.1"
 sed -i "s/ROUTER/${_ROUTER}/g" /etc/udhcpd.conf
 #sed -i "s/DNS/${_DNS}/g" /etc/udhcpd.conf
 # Copy in the config file to enable udhcpd
