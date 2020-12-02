@@ -44,16 +44,16 @@ read -r -p "What is the name of the vpn ?" remotevpnname
 read -r -p "What is the server IP or URL ? " remotevpn
 read -r -p "What is your VPN username ? " remotevpnuser
 read -r -sp "What is your VPN password ? " remotevpnpassword
-read -r -p "What is the remote network's address (ex:192.168.1.0/24)" remotevpnnet
+read -r -p "\nWhat is the remote network's address (ex:192.168.1.0/24)" remotevpnnet
 
 echo -e "${INFO}Setting up the VPN informations${NC}"
 echo "${remotevpnuser} ${remotevpnname} ${remotevpnpassword} *" >> /etc/ppp/chap-secrets
-echo "pty \"pptp ${remotevpn} --nolaunchpppd\"" > /etc/ppp/peers/${remotename}
-echo "name ${remotevpnuser}" >> /etc/ppp/peers/${remotename}
-echo "remotename ${remotevpnname}" >> /etc/ppp/peers/${remotename}
-echo "require-mppe-128" >> /etc/ppp/peers/${remotename}
-echo "file /etc/ppp/options.pptp" >> /etc/ppp/peers/${remotename}
-echo "ipparam ${remotevpnname}" >> /etc/ppp/peers/${remotename}
+echo "pty \"pptp ${remotevpn} --nolaunchpppd\"" > /etc/ppp/peers/${remotevpnname}
+echo "name ${remotevpnuser}" >> /etc/ppp/peers/${remotevpnname}
+echo "remotename ${remotevpnname}" >> /etc/ppp/peers/${remotevpnname}
+echo "require-mppe-128" >> /etc/ppp/peers/${remotevpnname}
+echo "file /etc/ppp/options.pptp" >> /etc/ppp/peers/${remotevpnname}
+echo "ipparam ${remotevpnname}" >> /etc/ppp/peers/${remotevpnname}
 cp ./config-files/99vpnroute /etc/ppp/ip-up.d/99vpnroute
 sed -i "s/workvpn/${remotevpnname}/g" /etc/ppp/ip-up.d/99vpnroute
 sed -i "s~192.168.1.0/24~${remotevpnnet}~g" /etc/ppp/ip-up.d/99vpnroute
