@@ -61,12 +61,17 @@ sed -i "s/workvpn/${remotevpnname}/g" /etc/ppp/ip-up.d/99vpnroute
 sed -i "s~192.168.1.0/24~${remotevpnnet}~g" /etc/ppp/ip-up.d/99vpnroute
 chmod a+x /etc/ppp/ip-up.d/99vpnroute
 
-echo "#!/bin/sh" > /etc/network/if-up.d/ppp
-echo "# This file was installed with the RPI-VPN-Gateway script" >> /etc/network/if-up.d/ppp
-echo "# For more info see https://github.com/unixabg/RPI-VPN-Gateway" >> /etc/network/if-up.d/ppp
-echo "" >> /etc/network/if-up.d/ppp
-echo "pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
-chmod a+x /etc/network/if-up.d/ppp
+#echo "#!/bin/sh" > /etc/network/if-up.d/ppp
+#echo "# This file was installed with the RPI-VPN-Gateway script" >> /etc/network/if-up.d/ppp
+#echo "# For more info see https://github.com/tunisiano187/RPI-VPN-Gateway" >> /etc/network/if-up.d/ppp
+#echo "" >> /etc/network/if-up.d/ppp
+#echo "pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
+#chmod a+x /etc/network/if-up.d/ppp
+
+echo "auto tunnel" > /etc/network/interfaces
+echo "iface tunnel inet ppp" >> /etc/network/interfaces
+echo "	provider ${remotevpnname}" >> /etc/network/interfaces
+
 
 echo -e "${INFO}###########################################${NC}"
 echo -e "${INFO}# copying configs to relevant directories #${NC}"
