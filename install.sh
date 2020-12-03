@@ -70,7 +70,8 @@ chmod a+x /etc/network/if-up.d/ppp
 
 echo '* *   * * *   root  /usr/local/bin/vpn' > /etc/cron.d/pppforce
 echo "#!/bin/sh" > /usr/local/bin/vpn
-echo "if ! [[ $(/sbin/ifconfig | /bin/grep ppp) ]]; then /usr/bin/pon ${remotevpnname}; fi" >> /usr/local/bin/vpn
+command='$(/sbin/ifconfig | /bin/grep ppp)'
+echo "if ! [[ $command ]]; then /usr/bin/pon ${remotevpnname}; fi" >> /usr/local/bin/vpn
 chmod a+x /usr/local/bin/vpn
 
 echo -e "${INFO}================================================================${NC}"
