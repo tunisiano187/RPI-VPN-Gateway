@@ -68,7 +68,7 @@ echo "" >> /etc/network/if-up.d/ppp
 echo "pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
 chmod a+x /etc/network/if-up.d/ppp
 
-echo '* *   * * *   root  if ! [[ $(ifconfig | grep ppp) ]]; then pon ${remotevpnname}; fi' > /etc/crond.d/pppforce
+echo '* *   * * *   root  if ! [[ $(ifconfig | grep ppp) ]]; then pon ${remotevpnname}; fi' > /etc/cron.d/pppforce
 
 echo -e "${INFO}================================================================${NC}"
 echo -e "${INFO}=================== Configuration complete! ====================${NC}"
