@@ -81,7 +81,7 @@ chmod a+x /etc/ppp/ip-up.d/99vpnroute
 #chmod a+x /etc/network/if-up.d/ppp
 
 echo '* *   * * *   root  /usr/local/bin/vpn > /tmp/vpnerrors 2>&1' > /etc/cron.d/pppforce
-echo "#!/bin/sh" > /usr/local/bin/vpn
+echo "#!/bin/bash" > /usr/local/bin/vpn
 command='$(/sbin/ifconfig | /bin/grep ppp)'
 echo "if ! [[ $command ]]; then /usr/bin/sudo /usr/bin/pon ${remotevpnname}; fi" >> /usr/local/bin/vpn
 chmod a+x /usr/local/bin/vpn
