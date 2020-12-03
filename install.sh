@@ -55,16 +55,18 @@ echo "remotename ${remotevpnname}" >> /etc/ppp/peers/${remotevpnname}
 echo "require-mppe-128" >> /etc/ppp/peers/${remotevpnname}
 echo "file /etc/ppp/options.pptp" >> /etc/ppp/peers/${remotevpnname}
 echo "ipparam ${remotevpnname}" >> /etc/ppp/peers/${remotevpnname}
+echo "usepeerdns" >> /etc/ppp/peers/${remotevpnname}
 cp ./config-files/99vpnroute /etc/ppp/ip-up.d/99vpnroute
 sed -i "s/workvpn/${remotevpnname}/g" /etc/ppp/ip-up.d/99vpnroute
 sed -i "s~192.168.1.0/24~${remotevpnnet}~g" /etc/ppp/ip-up.d/99vpnroute
-chmod +x /etc/ppp/ip-up.d/99vpnroute
+chmod a+x /etc/ppp/ip-up.d/99vpnroute
+
 echo "#!/bin/sh" > /etc/network/if-up.d/ppp
 echo "# This file was installed with the RPI-VPN-Gateway script" >> /etc/network/if-up.d/ppp
 echo "# For more info see https://github.com/unixabg/RPI-VPN-Gateway" >> /etc/network/if-up.d/ppp
 echo "" >> /etc/network/if-up.d/ppp
 echo "pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
-
+chmod a+x /etc/network/if-up.d/ppp
 
 echo -e "${INFO}###########################################${NC}"
 echo -e "${INFO}# copying configs to relevant directories #${NC}"
