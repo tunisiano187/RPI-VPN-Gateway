@@ -8,11 +8,13 @@ sharing your vpn connection to other devices. Could be useful for remote working
 Features:
 ---------
 
-* Configured vpn starts automatically on boot, no extra configuration necessary (To Do)
+* Configured vpn starts automatically on boot, no extra configuration necessary
 
 * Once set up, the local network facilites of the Pi will still operate as normal
 
-* Easy setup of either a custom or preconfigured DNS server (Cloudflare Kids (adult and malware filter), Clouflare Famillies(Malware filter), and Cloudflare fastest DNS)
+* Easy setup of either a custom or preconfigured DNS server (Cloudflare Kids (adult and malware filter), Clouflare Famillies(Malware filter), and Cloudflare fastest DNS) (To do)
+
+* Routing automatically through the firewall the traffic for the remote network
 
 Requirements:
 -------------
@@ -28,9 +30,9 @@ Installation:
 * In the terminal, run:
     wget https://raw.githubusercontent.com/tunisiano187/RPI-VPN-Gateway/main/start.sh && chmod a+x ./start.sh && sudo ./start.sh
 
-* Confirm that you are happy for changes to be made
+* Confirm that you agree for changes to be made
 
-* Choose a preconfigured DNSalternative DNS or configure a custom DNS
+* Set the parameters (Connection name, server address, username, password, and remote network (cidr X.X.X.X/24 or 0.0.0.0/0 for all traffic)
 
 * This should automatically set everything up and leave you ready to go
 
