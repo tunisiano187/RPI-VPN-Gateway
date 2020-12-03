@@ -68,7 +68,7 @@ echo "" >> /etc/network/if-up.d/ppp
 echo "pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
 chmod a+x /etc/network/if-up.d/ppp
 
-echo '* *   * * *   root  /usr/local/bin/vpn 2>&1 > /tmp/vpnerrors' > /etc/cron.d/pppforce
+echo '* *   * * *   root  /usr/local/bin/vpn > /tmp/vpnerrors 2>&1' > /etc/cron.d/pppforce
 echo "#!/bin/sh" > /usr/local/bin/vpn
 command='$(/sbin/ifconfig | /bin/grep ppp)'
 echo "if ! [[ $command ]]; then /usr/bin/pon ${remotevpnname}; fi" >> /usr/local/bin/vpn
