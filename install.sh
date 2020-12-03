@@ -34,7 +34,19 @@ apt-get -y -qq update
 
 echo -e "${INFO}Installing dependencies${NC}"
 
-apt-get -y -qq install pptp-linux
+apt-get -y -qq install pptp-linux unattended-upgrades
+
+echo -e "${INFO}######################################${NC}"
+echo -e "${INFO}# Configuring the automatic updating #${NC}"
+echo -e "${INFO}######################################${NC}"
+
+echo 'Unattended-Upgrade::Origins-Pattern {
+//      Fix missing Rasbian sources.
+        "origin=Debian,codename=${distro_codename},label=Debian";
+        "origin=Debian,codename=${distro_codename},label=Debian-Security";
+        "origin=Raspbian,codename=${distro_codename},label=Raspbian";
+        "origin=Raspberry Pi Foundation,codename=${distro_codename},label=Raspberry Pi Foundation";
+};' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-raspbian
 
 echo -e "${INFO}#######################${NC}"
 echo -e "${INFO}# Configuring the VPN #${NC}"
