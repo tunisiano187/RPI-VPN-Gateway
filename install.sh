@@ -37,17 +37,7 @@ echo -e "${INFO}Installing dependencies${NC}"
 apt-get -y -qq install pptp-linux unattended-upgrades
 
 clear
-echo -e "${INFO}######################################${NC}"
-echo -e "${INFO}# Configuring the automatic updating #${NC}"
-echo -e "${INFO}######################################${NC}"
 
-echo 'Unattended-Upgrade::Origins-Pattern {
-//      Fix missing Rasbian sources.
-        "origin=Debian,codename=${distro_codename},label=Debian";
-        "origin=Debian,codename=${distro_codename},label=Debian-Security";
-        "origin=Raspbian,codename=${distro_codename},label=Raspbian";
-        "origin=Raspberry Pi Foundation,codename=${distro_codename},label=Raspberry Pi Foundation";
-};' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-raspbian
 
 echo -e "${INFO}#################################${NC}"
 echo -e "${INFO}# Detecting current connections #${NC}"
@@ -55,11 +45,8 @@ echo -e "${INFO}#################################${NC}"
 
 _WAN=$(route -n | grep "UG " | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f2)
 _WANInt=$(route -n | grep "UG " | grep ${_WAN} | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f8)
-if [[ $(iwconfig ${_WANInt} | grep Rate | cut -d'=' -f2 | cut -d' ' -f1 | cut -d'.' -f1) -gt 0 ]] then
-	_LANType="eth"
-else
-	_LANType="wlan"
-fi
+if [[ $(iwconfig ${_WANInt} | grep Rate | cut -d'=' -f2 | cut -d' ' -f1 | cut -d'.' -f1) -gt 0 ]] then _LANType="eth" else _LANType="wlan" fi
+
 _LAN=$(ls -1 /sys/class/net/ | grep ${_WANInt} | grep -v lo | grep -v ppp)
 
 
