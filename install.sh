@@ -45,7 +45,7 @@ echo -e "${INFO}#################################${NC}"
 
 _WAN=$(route -n | grep "UG " | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f2)
 _WANInt=$(route -n | grep "UG " | grep ${_WAN} | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f8)
-if [[ $(iwconfig ${_WANInt} | grep Rate | cut -d'=' -f2 | cut -d' ' -f1 | cut -d'.' -f1) -gt 0 ]] then _LANType="eth" else _LANType="wlan" fi
+if [[ $(iwconfig ${_WANInt} | grep Rate | cut -d'=' -f2 | cut -d' ' -f1 | cut -d'.' -f1) -gt 0 ]]; then _LANType="eth"; else _LANType="wlan"; fi
 
 _LAN=$(ls -1 /sys/class/net/ | grep ${_WANInt} | grep -v lo | grep -v ppp)
 
