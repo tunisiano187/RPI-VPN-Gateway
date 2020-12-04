@@ -36,6 +36,7 @@ echo -e "${INFO}Installing dependencies${NC}"
 
 apt-get -y -qq install pptp-linux unattended-upgrades
 
+clear
 echo -e "${INFO}######################################${NC}"
 echo -e "${INFO}# Configuring the automatic updating #${NC}"
 echo -e "${INFO}######################################${NC}"
@@ -47,6 +48,20 @@ echo 'Unattended-Upgrade::Origins-Pattern {
         "origin=Raspbian,codename=${distro_codename},label=Raspbian";
         "origin=Raspberry Pi Foundation,codename=${distro_codename},label=Raspberry Pi Foundation";
 };' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-raspbian
+
+echo -e "${INFO}#################################${NC}"
+echo -e "${INFO}# Detecting current connections #${NC}"
+echo -e "${INFO}#################################${NC}"
+
+_WAN=$(route -n | grep "UG " | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f2)
+_WANInt=$(route -n | grep "UG " | grep ${_WAN} | tail -n1 | sed 's/[[:space:]]\{1,\}/ /g' | cut -d ' ' -f8)
+if [[ $(iwconfig ${_WANInt} | grep Rate | cut -d'=' -f2 | cut -d' ' -f1 | cut -d'.' -f1) -gt 0 ]] then
+	_LANType="eth"
+else
+	_LANType="wlan"
+fi
+_LAN=$(ls -1 /sys/class/net/ | grep ${_WANInt} | grep -v lo | grep -v ppp)
+
 
 echo -e "${INFO}#######################${NC}"
 echo -e "${INFO}# Configuring the VPN #${NC}"
@@ -80,18 +95,24 @@ chmod a+x /etc/ppp/ip-up.d/99vpnroute
 #echo "/usr/bin/pon ${remotevpnname}" >> /etc/network/if-up.d/ppp
 #chmod a+x /etc/network/if-up.d/ppp
 
-echo '* *   * * *   root  /usr/local/bin/vpn > /tmp/vpnerrors 2>&1' > /etc/cron.d/pppforce
+echo '* *   * * *   root  /usr/local/bin/vpn' > /etc/cron.d/pppforce
 echo "#!/bin/bash" > /usr/local/bin/vpn
 command='$(/sbin/ifconfig | /bin/grep ppp)'
 echo "if ! [[ $command ]]; then /usr/bin/sudo /usr/bin/pon ${remotevpnname}; fi" >> /usr/local/bin/vpn
 chmod a+x /usr/local/bin/vpn
 
+echo -e "${INFO}#######################${NC}"
+echo -e "${INFO}# Configuring the LAN #${NC}"
+echo -e "${INFO}#######################${NC}"
+
+echo "${INFO}${_LANInt} will be used as the Local network${NC}"
+
 echo -e "${INFO}================================================================${NC}"
 echo -e "${INFO}=================== Configuration complete! ====================${NC}"
 echo -e "${INFO}================================================================${NC}"
 
-echo -e "${INFO}+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++${INFO}"
-echo -e "${INFO}++++++++++++++++++ PRESS CTRL-C to cancel ++++++++++++++++++++++${INFO}"
+echo -e "${INFO}+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++${NC}"
+echo -e "${INFO}++++++++++++++++++ PRESS CTRL-C to cancel ++++++++++++++++++++++${NC}"
 
 sleep 10
 reboot
